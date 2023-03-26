@@ -247,21 +247,21 @@ ax.set_xticks(range(n_days))
 ax.set_yticks(range(n_nurses))
 ax.set_xlabel("Shifts")
 ax.set_ylabel("Nurses")
-plt.savefig("schedule.png")
+plt.savefig("./public/schedule.png")
 
 # Print schedule to command-line
-print("\nSchedule:\n")
-for n in range(n_nurses-1, -1, -1):
-    str_row = ""
-    for d in range(n_days):
-        outcome = "X" if (n, d) in sched else " "
-        if d > 9:
-            outcome += " "
-        str_row += "  " + outcome
-    print("Nurse ", n, str_row)
-
-str_header_for_output = " " * 11
-str_header_for_output += "  ".join(map(str, range(n_days)))
-print(str_header_for_output, "\n")
-
-print("Schedule saved as schedule.png.")
+# print("\nSchedule:\n")
+# for n in range(n_nurses-1, -1, -1):
+#     str_row = ""
+#     for d in range(n_days):
+#         outcome = "X" if (n, d) in sched else " "
+#         if d > 9:
+#             outcome += " "
+#         str_row += "  " + outcome
+#     print("Nurse ", n, str_row)
+#
+# str_header_for_output = " " * 11
+# str_header_for_output += "  ".join(map(str, range(n_days)))
+# print(str_header_for_output, "\n")
+#
+# print("Schedule saved as schedule.png.")

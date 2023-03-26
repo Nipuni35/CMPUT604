@@ -3,24 +3,20 @@ import { useState } from "react";
 import styles from "./index.module.css";
 
 export default function Home() {
-  const [queryInput, setQueryInput] = useState("");
-  const [goldQueryInput, setGoldQueryInput] = useState("");
   const [result, setResult] = useState();
   const [output, setOutput] = useState();
-  const [goldQuery, setGoldQuery] = useState();
-  const [codex, setCodexSelected] = useState(false);
-  const [gptDavinci, setGptDavinci] = useState(false);
-  const [gptCurie, setGptCurie] = useState(false);
+  const [nurses, setNurses] = useState('');
+  const [shifts, setShifts] = useState('');
 
-  async function executeQuery(event) {
-  console.log("executeQuery method started: " + result)
+  async function executeSheduler(event) {
+  console.log("executeSheduler method started: Nurses: " + nurses , " and Shifts: " + shifts)
   event.preventDefault();
         const response = await fetch("/api/execute", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ query: result , goldQuery: goldQueryInput}),
+          body: JSON.stringify({ noOfNurses: nurses , noOfShifts: shifts}),
         });
       const data = await response.json();
       console.log(data)
@@ -40,21 +36,26 @@ export default function Home() {
       <main className={styles.main}>
         <img src="/img_1.png" className={styles.icon} />
         <h3>Nurse Scheduling System</h3>
-        <form >
-        <label>Number of Nurses</label>
-          <input className={styles.submitBtn} type="text" value="0" />
-          <br/>
-                  <label>Number of Shifts</label>
-          <input className={styles.submitBtn} type="text" value="0" />
-        </form>
-      </main>
-      <input className={styles.evaluateBtn} onClick={executeQuery} type="submit" value="Evaluate Query"/>
-
-      <main className={styles.boxResults}>
-
-      <h4 id="outputResponse"></h4>
+        <br/>
 
       </main>
+            <main className={styles.userInputs}>
+            <div className={styles.nursesBox}>
+       <label>Number of Nurses     </label>
+                <input type="number" value={nurses} onChange={(event)=>setNurses(event.target.value)} className={styles.inputStyle}
+         />
+
+                        <label>Number of Shifts       </label>
+                <input type="number" value={shifts} onChange={(event)=>setShifts(event.target.value)}  className={styles.inputStyle}/>
+                                                      <input className={styles.evaluateBtn} onClick={executeSheduler} type="submit" value="Make Schedule"/>
+
+                </div>
+
+                </main>
+<div>
+      <h4 id="outputResponse" className={styles.boxResults} hidden={output == null}></h4>
+        <img src="/schedule.png" className={styles.result_image} hidden={output == null} />
+</div>
     </div>
   );
 }
