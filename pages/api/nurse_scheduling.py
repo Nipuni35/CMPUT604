@@ -229,19 +229,11 @@ ax = fig.add_subplot(111)
 ax.scatter(y, x)
 width = 1
 height = 1
+colors = ['blue', 'red', 'green', 'orange', 'lightblue', 'pink', 'lightgreen', 'black', 'purple']
 for a_y, a_x in sched:
-    if a_y == 0:
-        ax.add_patch(Rectangle(
-            xy=(a_x-width/2, a_y-height/2) ,width=width, height=height,
-            linewidth=1, color='blue', fill=True))
-    elif a_y == 1:
-        ax.add_patch(Rectangle(
-            xy=(a_x-width/2, a_y-height/2) ,width=width, height=height,
-            linewidth=1, color='red', fill=True))
-    else:
-        ax.add_patch(Rectangle(
-            xy=(a_x-width/2, a_y-height/2) ,width=width, height=height,
-            linewidth=1, color='green', fill=True))
+    ax.add_patch(Rectangle(
+        xy=(a_x-width/2, a_y-height/2) ,width=width, height=height,
+        linewidth=1, color=colors[a_y], fill=True))
 ax.axis('equal')
 ax.set_xticks(range(n_days))
 ax.set_yticks(range(n_nurses))
