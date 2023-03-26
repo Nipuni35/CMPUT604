@@ -247,7 +247,7 @@ ax.set_xticks(range(n_days))
 ax.set_yticks(range(n_nurses))
 ax.set_xlabel("Shifts")
 ax.set_ylabel("Nurses")
-plt.savefig("./public/schedule.png")
+plt.savefig("./public/" + sys.argv[3])
 
 # Print schedule to command-line
 # print("\nSchedule:\n")

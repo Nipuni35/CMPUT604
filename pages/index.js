@@ -10,13 +10,18 @@ export default function Home() {
 
   async function executeSheduler(event) {
   console.log("executeSheduler method started: Nurses: " + nurses , " and Shifts: " + shifts)
-  event.preventDefault();
+        setOutput(null);
+         document.getElementById('outputResponse').innerHTML = "";
+               var image = document.getElementById('res_image');
+          image.src = null;
+        event.preventDefault();
+        var imageFileName = "schedule" + Date. now() + ".png";
         const response = await fetch("/api/execute", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ noOfNurses: nurses , noOfShifts: shifts}),
+          body: JSON.stringify({ noOfNurses: nurses , noOfShifts: shifts, imageName: imageFileName}),
         });
       const data = await response.json();
       console.log(data)
@@ -24,6 +29,8 @@ export default function Home() {
       data.result.forEach(function(item, index, arr) {
           document.getElementById('outputResponse').innerHTML += '<p>' + item + '<br/>' + '</p>'
           })
+          console.log(imageFileName);
+      image.src = "/" + imageFileName;
       }
 
   return (
@@ -54,7 +61,7 @@ export default function Home() {
                 </main>
 <div>
       <h4 id="outputResponse" className={styles.boxResults} hidden={output == null}></h4>
-        <img src="/schedule.png" className={styles.result_image} hidden={output == null} />
+        <img id="res_image" className={styles.result_image} hidden={output == null} />
 </div>
     </div>
   );
