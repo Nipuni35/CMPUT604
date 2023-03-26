@@ -123,6 +123,7 @@ align-items: center;
 
 .userInputs {
 float: left;
+width: 100%;
 }
 
 .inputStyle {
