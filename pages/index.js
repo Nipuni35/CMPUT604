@@ -52,7 +52,7 @@ export default function Home() {
                 <input type="number" value={nurses} onChange={(event)=>setNurses(event.target.value)} className={styles.inputStyle}
          />
 
-                        <label>Number of Shifts       </label>
+                        <label>Number of Days       </label>
                 <input type="number" value={shifts} onChange={(event)=>setShifts(event.target.value)}  className={styles.inputStyle}/>
                                                       <input className={styles.evaluateBtn} onClick={executeSheduler} type="submit" value="Make Schedule"/>
 

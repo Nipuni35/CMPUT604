@@ -49,8 +49,8 @@ a = 3.5
 # Parameters for hard shift constraint
 # Hard shift constraint: at least one nurse working every day
 # Lagrange parameter, for hard shift constraint, on workforce and effort
-lagrange_hard_shift = 1.3
-workforce = 1     # Workforce function W(d) - set to a constant for now
+lagrange_hard_shift = 4
+workforce = 2     # Workforce function W(d) - set to a constant for now
 effort = 1        # Effort function E(n) - set to a constant for now
 
 # Parameters for soft nurse constraint
@@ -188,8 +188,12 @@ sched = [get_nurse_and_day(j) for j in range(size) if smpl[j] == 1]
 def check_hard_shift_constraint(sched, n_days):
 
     satisfied = [False] * n_days
+    num_nurses = [0] * n_days
     for _, day in sched:
-        satisfied[day] = True
+        num_nurses[day] += 1
+    for day in range(n_days):
+        if (num_nurses[day] >= 2):
+            satisfied[day] = True
 
     if all(satisfied):
         return "Satisfied"
