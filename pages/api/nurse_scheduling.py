@@ -79,6 +79,7 @@ def get_nurse_and_day(index):
     return nurse_index, day_index
 
 print("\nBuilding binary quadratic model...")
+CONFLICTS = [(0,1,2), (3,4,5)]
 # Hard nurse constraint: no nurse works two consecutive days
 # It does not have Lagrange parameter - instead, J matrix
 # symmetric, real-valued interaction matrix J, whereas all terms are
@@ -92,10 +93,23 @@ for nurse in range(n_nurses):
         nurse_day_2 = get_index(nurse, day+1)
         J[nurse_day_1, nurse_day_2] = a
 
+for day in range(n_days):
+    for nurse in range(n_nurses-1):
+        nurse_day_1 = get_index(nurse, day)
+        if (nurse in CONFLICTS[0]):
+            for j in CONFLICTS[1]:
+                nurse_day_2 = get_index(j, day)
+                J[nurse_day_1, nurse_day_2] += a ** 2
+        if (nurse in CONFLICTS[1]):
+            for j in CONFLICTS[0]:
+                nurse_day_2 = get_index(j, day)
+                J[nurse_day_1, nurse_day_2] += a ** 2
+
+
 # Q matrix assign the cost term, the J matrix
 Q = deepcopy(J)
 
-# Hard shift constraint: at least one nurse working every day
+# Hard shift constraint: at least two nurse working every day
 # The sum is over each day.
 # This constraint tries to make (effort * sum(q_i)) equal to workforce,
 # which is set to a constant in this implementation, so that one nurse
@@ -180,11 +194,12 @@ results = sampler.sample(bqm, label='Example - Nurse Scheduling')
 
 # Get the results
 smpl = results.first.sample
+energy = results.first.energy
 
 # Graphics
 print("\nBuilding schedule and checking constraints...\n")
 sched = [get_nurse_and_day(j) for j in range(size) if smpl[j] == 1]
-
+print("\nSolution Energy... : ", energy)
 def check_hard_shift_constraint(sched, n_days):
 
     satisfied = [False] * n_days
