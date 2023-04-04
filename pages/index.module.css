@@ -130,3 +130,9 @@ width: 100%;
 margin-right: 10px;
 margin-top: 10px;
 }
+
+.checkboxes {
+text-align: center;
+align-items: center;
+margin-bottom: 10px;
+}
