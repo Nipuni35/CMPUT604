@@ -92,15 +92,15 @@ export default function Home() {
                 <input type="number" value={nurses} onChange={(event)=>setNurses(event.target.value)} className={styles.inputStyle}
          />
 
-                        <label>Number of Days       </label>
+                <label>Number of Days       </label>
                 <input type="number" value={shifts} onChange={(event)=>setShifts(event.target.value)}  className={styles.inputStyle}/>
-                <label>Conflict Group 1 (eg: 0,1,2)     </label>
-                                <input type="text" value={conflictGroupOne} onChange={(event)=>setConflictGroupOne(event.target.value)}  className={styles.inputStyle}/>
+                <label hidden={fourConstraints == false}>Conflict Group 1 (eg: 0,1,2)     </label>
+                <input type="text" value={conflictGroupOne} onChange={(event)=>setConflictGroupOne(event.target.value)}  className={styles.inputStyle} hidden={fourConstraints == false}/>
 
-              <label>Conflict Group 2 (eg: 3,4,5)     </label>
-                                             <input type="text" value={conflictGroupTwo} onChange={(event)=>setConflictGroupTwo(event.target.value)}  className={styles.inputStyle}/>
+                <label hidden={fourConstraints == false}>Conflict Group 2 (eg: 3,4,5)     </label>
+                <input type="text" value={conflictGroupTwo} onChange={(event)=>setConflictGroupTwo(event.target.value)}  className={styles.inputStyle} hidden={fourConstraints == false}/>
 
-                           <input className={styles.evaluateBtn} onClick={executeSheduler} type="submit" value="Make Schedule"/>
+                <input className={styles.evaluateBtn} onClick={executeSheduler} type="submit" value="Make Schedule"/>
 
                 </div>
 
