@@ -238,6 +238,37 @@ def check_hard_nurse_constraint(sched, n_nurses):
     else:
         return "Unsatisfied"
 
+def check_hard_nurse_conflict_constraint(sched, n_days):
+
+    satisfied = [False] * n_days
+    num_nurses = [[]] * n_days
+    # for i in range(n_days):
+    #     num_nurses[i] = []
+    # print(num_nurses)
+    for nurse, day in sched:
+        num_nurses[day].append(nurse)
+    for day in range(n_days):
+        conflcitedNursesAvailable = False
+        conflcited1NursesAvailable = False
+        conflcited2NursesAvailable = False
+        for nurse in (num_nurses[day]):
+            if (nurse in conflict1):
+                conflcited1NursesAvailable = True
+            if (nurse in conflict2):
+                conflcited2NursesAvailable = True
+            if (conflcited1NursesAvailable == True and conflcited2NursesAvailable == True):
+                conflcitedNursesAvailable = True
+                satisfied[day] = False
+                break
+        if (conflcitedNursesAvailable == True):
+            satisfied[day] = True
+        else:
+            satisfied[day] = False
+
+    if all(satisfied):
+        return "Satisfied"
+    else:
+        return "Unsatisfied"
 def check_soft_nurse_constraint(sched, n_nurses):
 
     num_shifts = [0] * n_nurses
@@ -250,7 +281,7 @@ def check_soft_nurse_constraint(sched, n_nurses):
         return "Unsatisfied"
 
 print("\tHard shift constraint:", check_hard_shift_constraint(sched, n_days))
-print("\tHard nurse Conflict constraint:", check_hard_shift_constraint(sched, n_days))
+print("\tHard nurse Conflict constraint:", check_hard_nurse_conflict_constraint(sched, n_days))
 print("\tHard nurse constraint:", check_hard_nurse_constraint(sched, n_nurses))
 print("\tSoft nurse constraint:", check_soft_nurse_constraint(sched, n_nurses))
 
