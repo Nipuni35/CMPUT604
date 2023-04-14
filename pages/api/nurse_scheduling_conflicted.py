@@ -105,6 +105,8 @@ for nurse in range(n_nurses):
         nurse_day_2 = get_index(nurse, day+1)
         J[nurse_day_1, nurse_day_2] = a
 
+# Hard nurse conflict constraint: no nurses from different conflict groups work together
+
 for day in range(n_days):
     for nurse in range(n_nurses-1):
         nurse_day_1 = get_index(nurse, day)
